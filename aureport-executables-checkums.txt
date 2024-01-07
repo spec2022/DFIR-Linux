@@ -1,0 +1,13 @@
+
+#!/bin/bash
+
+#This script check auditd report for all executables that have been run on the system and calculates their hash
+
+# Run aureport and extract the list of file paths
+file_paths=$(aureport -x --summary |  tail -n +6 | awk '{print $2}')
+
+# Loop through each file path and calculate SHA1 sum
+for file_path in $file_paths; do
+    sha1sum "$file_path"
+done
+
